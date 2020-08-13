@@ -78,5 +78,10 @@ class PyCodeStyleDiagnosticReport(pycodestyle.BaseReport):
             'message': text,
             'code': code,
             # Are style errors really ever errors?
-            'severity': lsp.DiagnosticSeverity.Warning
+            'severity': self._get_severity(code)
         })
+
+
+def _get_severity(code):	
+    if code[0] == 'E' or code[0] == 'W':	
+        return lsp.DiagnosticSeverity.Warning
